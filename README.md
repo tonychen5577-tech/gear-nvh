@@ -1,279 +1,199 @@
 <div align="center">
 
-# ⚙️ ANSV Gear-NVH 2027 齿轮箱 NVH 智能诊断工作站
-### Industrial NVH Acoustic & Vibration Intelligent Diagnostic Workstation (2027 官方商业正式版 | Build 20261025B1)
+<p align="right">
+  <b>Language:</b>
+  <a href="README.md"><b>🇬🇧 English</b></a> |
+  <a href="README_CN.md">🇨🇳 简体中文</a>
+</p>
+
+# ⚙️ ANSV Gear-NVH 2027 | Industrial NVH Acoustic & Vibration Workstation
+### Intelligent Diagnostic Workstation for Precision Reducers, Actuators, Industrial Gearboxes & Rotating Machinery (2027 Commercial Official Build | Build 20261025B1)
 
 [![Release](https://img.shields.io/github/v/release/tonychen5577-tech/gear-nvh?color=0284C7&label=Release%202027)](https://github.com/tonychen5577-tech/gear-nvh/releases/tag/v2027)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%2F%2011%20(64--bit)-0284C7)](https://github.com/tonychen5577-tech/gear-nvh)
 [![License](https://img.shields.io/badge/License-Commercial%20%2F%20Free%20Evaluation-059669)](https://github.com/tonychen5577-tech/gear-nvh)
-[![Architecture](https://img.shields.io/badge/Security-Cython%20Native%20C%20Code-334155)](https://github.com/tonychen5577-tech/gear-nvh)
+[![Security](https://img.shields.io/badge/Security-Cython%20Native%20C%20Code-334155)](https://github.com/tonychen5577-tech/gear-nvh)
 [![Cloud OTA](https://img.shields.io/badge/Cloud%20OTA-Silent%20Hot%20Patch%20(~22MB)-38BDF8)](https://gearnvh.ansv.net)
 
 <p align="center">
-  <b>专为精密减速器、车载微型摆动执行器、工业齿轮箱及旋转机械量身打造的软硬件一体化声学与振动智能诊断工作站</b>
+  <b>Dedicated Hardware-Software Integrated Acoustic and Vibration Intelligent Diagnostic Workstation for Precision Reducers, Automotive Micro-Swing Actuators, Industrial Gearboxes, and Rotating Machinery</b>
 </p>
 
-[📥 免费下载 2027 正式版安装包](https://github.com/tonychen5577-tech/gear-nvh/releases/tag/v2027) • [✨ 核心功能亮点](#-核心功能亮点) • [🔬 真实工程诊断案例](#-真实工程实战案例某高精微型多级减速执行器敲击异音闭环诊断) • [🔑 商业合作与授权模式](#-商业合作模式与授权体系) • [🎙️ 硬件选型与测试规范](#-硬件选型与测试规范推荐) • [📬 技术支持与专属联系通道](#-技术支持与专属联系通道-contact-us)
+[📥 Download 2027 Release](https://github.com/tonychen5577-tech/gear-nvh/releases/tag/v2027) • [✨ Key Features](#-key-features) • [🔬 Engineering Case Studies](#-real-world-engineering-case-studies) • [🔑 Licensing & Services](#-commercial-licensing--pricing) • [🎙️ Hardware & Testing Guide](#-recommended-hardware--testing-guidelines) • [📬 Technical Support (Contact Us)](#-technical-support--contact-channels-contact-us)
 
 </div>
 
 ---
 
-## 📖 系统简介
+## 📖 System Overview
 
-**ANSV Gear-NVH 2027** 是一款面向工业现场、研发实验室与产线质检研发的**高精密机械异音与 FFT 频域智能诊断工作站**。
+**ANSV Gear-NVH 2027** is an industrial-grade **acoustic anomaly and vibration frequency-domain intelligent diagnostic workstation** tailored for manufacturing floors, R&D laboratories, and end-of-line (EOL) quality inspection.
 
-传统工业巡检过度依赖现场人员的“经验听音”，存在**主观性强、易受环境干扰、无法量化归档、排查责任界定模糊**等行业痛点。ANSV Gear-NVH 将**高精度动态信号采集、高分辨频域特征解算、微观时域脉冲敏感度量与专家机理推理**融为一体：
+Traditional industrial inspections heavily depend on "subjective auditory judgment" by senior operators, which introduces **inconsistency, vulnerability to ambient background noise, lack of quantitative archiving, and ambiguous fault attribution between motor and gearbox suppliers**.
 
-无需繁复配置，只需输入机械转速与各级传动参数，系统即可自动反演整套传动链的运动学特征频率，精准锁定敲击断齿、干涉挤压啸叫、侧隙打齿碰撞、换向器跳拍、轴承内外圈损伤及结构共振异音的**故障级数与根因机理**，为机械传动系统的质量控制与故障溯源提供客观、量化、确定性的科学依据。
+ANSV Gear-NVH integrates **high-precision dynamic signal acquisition, high-resolution kinematic frequency decomposition, micro-transient energy ratio analysis, and physical root-cause reasoning**:
+
+Without complicated configuration, simply enter the input rotational speed and transmission tooth parameters. The system automatically performs kinematic inversion across the entire drive train to deduce shaft rotational frequencies, gear meshing frequencies ($f_m$), modulation sidebands, rolling bearing defect orders (BPFO, BPFI, BSF, FTF), and motor electromagnetic/commutation harmonics. It pinpoints the **exact failure stage and root cause**, delivering objective, quantitative, and deterministic scientific evidence for mechanical transmission quality control.
 
 <p align="center">
-  <img src="docs/images/main_gui_diagnosis.jpg" alt="ANSV Gear-NVH 2027 智能诊断工作站主界面全景" width="100%" />
+  <img src="docs/images/main_gui_diagnosis.jpg" alt="ANSV Gear-NVH 2027 Workstation UI" width="100%" />
   <br>
-  <em>图 1：ANSV Gear-NVH 2027 智能诊断工作站主界面 —— 某精密多级复合减速执行器 800 RPM 工况敲击异音秒级专家诊断全景（集成左侧传动级/轴承参数、无刷电机定转子配置、时域敲击脉冲高亮、FFT 多级啮合标桩、Top-5 能量峰归属及云端双向同步）</em>
+  <em>Figure 1: ANSV Gear-NVH 2027 Workstation Main Interface — Expert diagnostics of an 800 RPM multi-stage actuator under abnormal knocking conditions (featuring gear/bearing parameter inputs, motor stator/rotor pole configuration, time-domain transient highlighting, FFT order staking, and Top-5 peak energy attribution).</em>
 </p>
 
 ---
 
-## ✨ 核心功能亮点
+## ✨ Key Features
 
-### 1. 任意级数动力学建模与支承轴承数据库
-- **任意级数拓展**：支持单级、两级、三级直至多级级联传动机构，自由动态增加或削减级数；
-- **多元机构类型支持**：原生适配**普通圆柱直齿轮、斜齿轮、行星齿轮箱、蜗轮蜗杆减速机构（含特殊增速机构）**；
-- **全传动链支承轴承数据库与特征阶次解算**：支持为各级齿轮轴系与电机转子配置专用支承轴承型号（内置 NSK 623ZZ, 681X, 692, 608 等高精微型轴承库，支持企业自定义扩展），实时精确推导解算四大轴承故障特征阶次：**外圈故障 (BPFO)、内圈故障 (BPFI)、滚动体自转 (BSF) 与保持架旋转 (FTF)**，并在频谱中自动完成阶次标桩；
-- **全传动链特征频率智能推算**：实时根据输入轴转速解算各级轴系转速、单级传动比、整箱总速比及各级啮合基频（fm），自动标定多层级运动学网格。
-
-<p align="center">
-  <img src="docs/images/bearing_library_and_diagnostics.jpg" alt="轴承数据库管理器与特征频率解调" width="100%" />
-  <br>
-  <em>图 2：内置高精度轴承数据库管理器 (Bearing Library) —— 快速查询与配置各级轴承节圆、滚珠数、接触角及 BPFO/BPFI/BSF/FTF 故障特征阶次乘数</em>
-</p>
-
-### 2. 🔄 往返多行程自适应巡检 (Reciprocating Multi-Stroke Inspection)
-- **专为摆动执行器与往复受载工况定制**：针对车载微型执行器、精密伺服阀门、潜望马达在实际装机中“来回往复旋转、交替受载”的运行工况；
-- **停顿低谷自适应切分**：独创动作启闭与换向停顿自适应识别算法，自动在长录音中精确锚定各单向行程（正程 Stroke 1、反程 Stroke 2...）的分界点，无需繁复的手动裁切；
-- **多行程短板仲裁机制**：正反向旋转时齿轮齿面受载方向不同，系统自动对每个独立行程进行峭度、能量比与频域特征解算，实行“多行程短板仲裁”（任意单一受载行程超标即判定异常），彻底杜绝单向隐性打齿与单边碰伤的漏检误判；
-- **分程波形切换与全行程平均图谱**：一键在各个独立行程的时域/频域视图间自由穿梭，对比正反行程的声学差异。
+### 1. Arbitrary-Stage Kinematic Modeling & Embedded Bearing Database
+- **Scalable Stage Hierarchy**: Supports single-stage, two-stage, three-stage, and multi-stage cascaded transmission mechanisms with dynamic addition and removal of stages;
+- **Multi-Topology Support**: Natively accommodates **spur gears, helical gears, planetary gearboxes, worm-and-gear reducers, and step-up overdrive gearboxes**;
+- **Full Drivetrain Bearing Library & Order Inversion**: Assign standard rolling bearings to every shaft and motor rotor (built-in micro-bearing models including NSK 623ZZ, 681X, 692, 608, with custom parameter expansion). Automatically calculates four primary bearing defect orders: **Ball Pass Frequency Outer (BPFO), Ball Pass Frequency Inner (BPFI), Ball Spin Frequency (BSF), and Fundamental Train Frequency (FTF)**, automatically staked on the FFT spectrum;
+- **Full Kinematic Frequency Inversion**: Dynamically resolves shaft speeds, individual stage gear ratios, total transmission ratio, and fundamental meshing frequencies ($f_m$) based on input RPM.
 
 <p align="center">
-  <img src="docs/images/case_reciprocating_stroke_inspection.png" alt="往返多行程自适应切分与巡检短板仲裁全景" width="100%" />
+  <img src="docs/images/bearing_library_and_diagnostics.jpg" alt="Bearing Library Manager" width="100%" />
   <br>
-  <em>图 3：往返多行程巡检工况实战解算全景 —— 自动识别执行器来回动作停顿低谷并切分单向行程，提供多行程独立评级与短板仲裁，杜绝单向隐性碰伤漏检</em>
-</p>
-
-### 3. 电机定转子/换向特征与齿轮箱同台解耦
-- **无刷 (BLDC) 与有刷 (Brushed DC) 双模式适配**：支持针对电机定子齿槽数 (Zs)、换向片数 (K)、转子磁极数 (2p) 进行精细化动力学建模；
-- **电机本体故障与传动机构物理剥离**：可一键切换为【纯电机单体测试模式】，在无负荷单机状态下精确捕获电机转子 1X 机械偏心脉冲、换向火花跳拍与转子轴承微损伤，彻底排查电机自身缺陷，避免齿轮箱供应商无辜背锅！
-
-<p align="center">
-  <img src="docs/images/case_pure_motor_diagnostics.png" alt="纯电机单体测试模式与多物理场解耦图谱" width="100%" />
-  <br>
-  <em>图 7：真实闭环案例中纯电机测试模式验证 —— 脱开齿轮箱后，精准解调捕获电机转子固有 74.1 ms (13.5 Hz) 单圈 1X 机械脉冲、极槽谐波与转子轴承阶次</em>
-</p>
-
-### 4. 实时声学/振动采集与 4 轨声学分离 (Acoustic-Insight)
-- **工业级传感器直连**：支持专业测量传声器（声学麦克风）、声级计、IEPE 振动加速度传感器及多通道专业 USB 声卡设备；
-- **低延迟高保真输入流**：超低延迟硬件缓冲驱动，毫秒级捕捉微弱突发冲击异常；
-- **客观测谱 + 异音特征分离与听音对比 (Acoustic-Insight)**：独创 4 轨无缝声学分离技术（纯敲击异音提取、消除敲击后平稳底噪、低频交变律动声化、原始现场声音），支持声画同步毫秒级示波对齐与一键批量导出；
-- **客观测谱 + 主观听音综合验证**：内置安全试听引擎与默认静音防护机制，支持声画同步播放、音量动态平滑调节与任意时间戳快速定位跳转。
-
-### 5. 微观时域脉冲敏感度量与 8D 诊断报告结案
-- **微秒级瞬态脉冲捕捉**：内置滑动短时能量比与动态能量自适应包络算法，在强平稳背景噪音中精准提取“哒哒哒”瞬态硬冲击时刻点；
-- **工业标准统计峭度度量 (Kurtosis & Crest Factor)**：实时计算整段音频统计峭度（正常背景噪声基准 ~3.0）与峰值因子，直观量化异常冲击的能量聚焦度与烈度；
-- **一键输出工程结案报告**：支持导出符合汽车与工业行业标准的 8D 诊断分析报告，图文并茂记录故障机理、频域证据链与整改公差建议；
-- **专家案例库与云端协同**：内置案例库管理中心，支持多工位、多工厂案例历史波形调阅与标杆对比。
-
-<p align="center">
-  <img src="docs/images/expert_case_management_hub.jpg" alt="专家案例库管理中心全景" width="100%" />
-  <br>
-  <em>图 5：专家案例库管理中心 —— 支持云端/本地质检案例检索、波形复现、多工位对齐与一键调阅分析</em>
+  <em>Figure 2: Built-in Precision Bearing Library Manager — Query and configure pitch diameters, ball counts, contact angles, and automatic BPFO/BPFI/BSF/FTF defect order multipliers.</em>
 </p>
 
 ---
 
-## 🔬 真实工程实战案例：某高精微型多级减速执行器敲击异音闭环诊断
-
-以下展示 ANSV Gear-NVH 在某型高精微型多级复合减速执行器（整机总减速比 **495.407**，内部采用“2 级蜗杆副 + 2 级圆柱齿轮副”复合减速）敲击异音专项评估中的真实闭环诊断过程：
-
-### 1. 被测执行器运动学传动参数全景
-
-```
-[无刷电机本体] (极对数: 2, 额定: 800~1900 RPM)
-      │
-      ▼ (第 1 级: 蜗杆副 1 / 29, 减速比 29.000)
-[中间双联轴 1]
-      │
-      ▼ (第 2 级: 蜗杆副 1 / 21, 减速比 21.000)
-[中间双联轴 2]
-      │
-      ▼ (第 3 级: 渐开线圆柱齿轮副 23 / 19, 减速比 0.826)
-[中间齿轮轴 3]
-      │
-      ▼ (第 4 级: 输出大齿轮副 19 / 20, 减速比 1.053)
-[执行器终端摆角输出轴] (整机总速比: 495.407)
-```
-
-### 2. 变频追踪实测：确凿锁定 1X 转频输入端冲击
-
-ANSV 工程诊断团队在被测执行器 800、1200、1500、1900 RPM 四种转速下采集声学信号，并由工作站自动解调：
-
-| 设定转速 | 理论输入轴频 fs0 (周期) | 实测脉冲频率 fmeas (特征阶次) | 追踪比 (fmeas/fs0) | 全局峭度 (Kurtosis) | 分帧峰值峭度 | 冲击显著帧数 / 占比 | 智能诊断结论 |
-| :--- | :--- | :--- | :---: | :---: | :---: | :--- | :--- |
-| **800 RPM** | 13.33 Hz (75.0 ms) | **13.3 Hz** (1X/2X) | **1.00** | **4.28** | **7.85** | 7.82s / 388 帧 | **第 1 级输入端单点干涉 / 敲击** |
-| **1200 RPM (额定)** | 20.00 Hz (50.0 ms) | **20.0 Hz** (1X/2X) | **1.00** | **5.48** | **6.65** | 4.43s / 220 帧 | **第 1 级输入端单点干涉 / 敲击** |
-| **1500 RPM** | 25.00 Hz (40.0 ms) | **25.0 Hz** (1X/2X) | **1.00** | **4.68** | **4.85** | 2.68s / 133 帧 | **第 1 级输入端单点干涉 / 敲击** |
-| **1900 RPM (超速)** | 31.67 Hz (31.6 ms) | **31.7 Hz** (1X/2X) | **1.00** | **4.49** | **5.57** | 1.86s / 92 帧 | **第 1 级输入端单点干涉 / 敲击** |
+### 2. Reciprocating Multi-Stroke Adaptive Dynamic Inspection
+- **Stroke Boundary Segmentation**: For oscillating mechanisms with finite angular travel (e.g., automotive HVAC damper actuators, seat lumbar adjusters, industrial valve positioners), the system automatically segments cycles into **Forward** and **Reverse** strokes using velocity zero-crossing and instantaneous energy envelope algorithms;
+- **Impact Isolation & Steady-State Filtering**: Automatically discards end-point reversal deceleration impacts and mechanical hard stop collisions, isolating steady-state operating periods for pure meshing spectral analysis;
+- **Drive-Side vs. Coast-Side Asymmetric Wear Assessment**: Compares positive and negative stroke energy spectra to identify directional wear on tooth profiles.
 
 <p align="center">
-  <img src="docs/images/case_gearbox_800rpm_diagnosis.png" alt="800 RPM 低速工况敲击异音诊断" width="100%" />
+  <img src="docs/images/case_reciprocating_stroke_inspection.png" alt="Reciprocating Stroke Inspection" width="100%" />
   <br>
-  <em>图 6：800 RPM 低速工况下软件实测图谱 —— 确凿捕获 13.3 Hz (1X) 输入轴转频冲击与峭度异常 (峰值峭度达 7.85)</em>
+  <em>Figure 3: Reciprocating Multi-Stroke Dynamic Inspection — Automated forward/reverse stroke boundary segmentation and steady-state spectral kurtosis evaluation.</em>
 </p>
-
-### 3. 动力学机理解耦：为什么 100% 确诊在第 1 级输入端？
-1. **转速 1:1 严格线性追踪（数学铁证）**：
-   在 800 → 1200 → 1500 → 1900 RPM 变频运行中，实测冲击能量峰值从 13.3 Hz → 20.0 Hz → 25.0 Hz → 31.7 Hz 同步线性漂移，**频率比值恒等于 1.00**。这是输入主轴每转一圈产生且仅产生一次机械碰撞的绝对物理判据。
-2. **下游传动级彻底排除**：
-   若异音由下游齿轮损坏引起，根据速比计算，第 2 级双联齿轮轴频仅 2.73 Hz、第 3 级仅 0.65 Hz、第 4 级仅 0.04 Hz。实测中完全不存在上述低频为主导的冲击波形，下游级被物理规律一票否决排除！
-3. **时域非线性硬冲击特性**：
-   正常健康减速箱平稳运转时，高斯随机背景噪声时域峭度基准约为 3.0。实测数据中全局峭度高达 **4.28 ~ 5.48**，分帧峰值达 **7.85**，证明齿轮箱内部存在能量高度集中的瞬态硬撞击。
 
 ---
 
-### 4. 纯无刷电机（脱开齿轮箱）专项测试与结论闭环修正
-
-为彻底查清异音源头，排除齿轮箱装配耦合与箱体空腔共振的干扰，工程团队将电机完全从减速箱中脱开，在**完全无负荷的纯电机单机状态**下，使用系统的【纯电机单体测试模式】进行严密解调：
+### 3. Pure Motor Standalone Testing & Motor-Gearbox Decoupling
+- **Decoupling Motor Harmonics from Gearbox Flaws**: Resolves disputes between motor suppliers and gearbox assemblers over noise accountability: **"Is the clicking caused by motor brush commutation or tooth runout?"**
+- **Brushless Motor Slot & Pole Harmonics**: Computes cogging torque orders and phase-switching harmonics from stator slots and rotor poles;
+- **Brushed DC Commutation Pulse Staking**: Accurately tracks brush-commutator friction pulses ($f_c = 	ext{RPM}/60 	imes 	ext{segments}$);
+- **Instant Arbitration**: If peaks match commutation harmonics while gear mesh frequencies ($f_m$) remain flat, gear defects are 100% ruled out, preventing tens of thousands in unnecessary mold re-tooling costs.
 
 <p align="center">
-  <img src="docs/images/case_pure_motor_diagnostics.png" alt="纯电机单体测试模式与多物理场解耦图谱" width="100%" />
+  <img src="docs/images/case_pure_motor_diagnostics.png" alt="Pure Motor Standalone Diagnostics" width="100%" />
   <br>
-  <em>图 7：真实闭环案例中纯电机测试模式验证 —— 脱开齿轮箱后，精准解调捕获电机转子固有 74.1 ms (13.5 Hz) 单圈 1X 机械脉冲与微型深沟球轴承特征</em>
+  <em>Figure 4: Pure Motor Standalone Testing Mode — Stator/rotor pole slot harmonics, brush commutation pulse detection, and mechanical decoupling analysis.</em>
 </p>
 
-| 测试工况 (纯电机单机) | 理论转频 fs0 (单圈耗时) | 实测脉冲周期 Tmeas (对应频率) | 追踪比 (fmeas/fs0) | 全局峭度 (Kurtosis) | 分帧峰值峭度 | 峰值因子 (Crest) | 纯电机单体诊断现象 |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **单电机 800 RPM** | 13.33 Hz (75.0 ms) | **74.1 ms (13.5 Hz)** | **1.00** | **2.76** | **3.42** | **3.49** | 明确捕获转子单圈一次（1X）轻微“哒哒”硬脉冲 |
-| **单电机 1200 RPM** | 20.00 Hz (50.0 ms) | **49.6 ms (20.2 Hz)** | **1.00** | **3.13** | **4.54** | **4.60** | 明确捕获转子单圈一次（1X）轻微“哒哒”硬脉冲 |
+---
 
-### 5. 综合归因与权威确诊结论（避免数万元开模成本浪费）
-- **根本性物理结论明确**：
-  - 异音的物理发源地 **100% 确认为无刷电机本体内部固有 1X 脉冲**（换向器单片微凸、碳刷跳拍或转子轴向窜动碰擦）；
-  - **减速齿轮箱彻底平反**：齿轮箱各级齿轮不存在本发性加工或齿形设计硬缺陷！
-- **物理传播链条完全闭环**：
-  电机在组装前就已存在该微弱脉冲。组装入箱体后，电机轴与第 1 级主动蜗杆形成刚性约束，电机内部微弱撞击能量激发了轴系与薄壁塑料壳体的高频共振，齿轮箱充当了“受迫振动与声学共鸣放大器”（峭度由 2.76 放大至 4.28~5.48）。
-- **工程落地整改价值**：
-  指导制造团队优先实施**电机装配重新对中、微调止口垂直度并确保保有 0.15~0.30 mm 自由轴向窜动间隙**，避免了数万元盲目开模改模费用与长达数月的推诿扯皮！
+### 4. Acoustic-Insight 4-Track Sound Separation Engine
+- Translates abstract spectrum plots into tangible, audible sound tracks. Uses specialized Non-Negative Matrix Factorization (NMF) and time-domain transient separation to decompose raw audio into 4 isolated channels:
+  1. 🔴 **Transient Impacts Only (Knocking)**: Extracts isolated clicking and tapping sounds, eliminating steady background hum;
+  2. 🟢 **Residual Background**: Preserves smooth tooth meshing hum without transient clicks, ideal for surface roughness assessment;
+  3. 🔵 **Low-Frequency Rotation Rhythm**: Demodulates 1X/2X shaft eccentricities into low-frequency acoustic rhythms;
+  4. ⚪ **Original Calibrated Signal**: High-fidelity calibrated raw audio with synchronized waveform and spectrum tracking.
+- Supports side-by-side AB audio audition and batch WAV export for customer presentations.
 
 ---
 
-## 📥 软件下载与快速上手
+### 5. CBR Expert Case Management Hub & Automated 8D Reporting
+- **Case-Based Reasoning (CBR)**: Curates historical gearbox and actuator fault signatures, creating an institutional knowledge base;
+- **Intelligent Spectral Matching**: Searches unseen spectra against historical databases to recall similar failure modes (e.g., uneven shrinkage in injection-molded gears, bearing tilt, backlash binding) and proven corrective actions;
+- **Automated 8D Engineering Diagnostic Report**: One-click generation of customer-ready 8D reports containing time-domain metrics, kinematic evidence chains, FFT order charts, and tolerance tuning recommendations.
 
-本系统采用**纯绿色便携免安装设计**，无需安装 Python 环境，无需配置任何环境变量，解压即可运行：
-
-1. **下载安装包**：
-   前往 GitHub Releases 官方发布页下载最新版本：
-   👉 **[点击前往 Releases 下载页面](https://github.com/tonychen5577-tech/gear-nvh/releases/tag/v2027)**
-2. **解压运行**：
-   下载 `ANSV_Gear_NVH_2027_Full_Setup.zip`（或 `Gear_Acoustic_App_v2027.zip`）并解压到常用工作目录（如 `D:\ANSV_GearNVH` 或桌面）；
-3. **双击启动**：
-   双击目录中的 `Gear_Acoustic_App.exe` 即可毫秒级启动工作站，直接进入工作台浏览界面；
-4. **创建桌面快捷方式（推荐）**：
-   首次启动后，点击主界面右上角的【关于系统】按钮，在弹窗中点击【创建桌面快捷方式】，系统将自动在 Windows 桌面生成专属高科技工业矢量图标的快捷方式，方便日常工作一键直达。
-   > 💡 工作站支持直接进入工作台浏览界面。随时按 **F1** 键即可唤起内置专业使用指南与实战案例；点击右上角【❓ 帮助指南 (F1)】可随时查阅。
-
-> 📌 **电脑配置要求**：
-> - **操作系统**：Windows 10 / Windows 11 (64-bit)
-> - **硬件要求**：Intel Core i3 或更高 / 4GB 内存 / 500MB 可用硬盘空间
-> - **屏幕显示**：支持普通高清屏（$1920 \times 1080$）及 2K/4K 高分屏（支持 125%、150%、200% 缩放自适应，图标极致清晰）
-> - **声卡与传感器支持**：支持任何 DirectSound / WASAPI 标准声卡，原生适配工业测量级传声器 (USB/Line-In) 与 IEPE 振动加速度采集仪
+<p align="center">
+  <img src="docs/images/expert_case_management_hub.jpg" alt="Expert Case Hub" width="100%" />
+  <br>
+  <em>Figure 5: Expert Case Management Hub (CBR) — Empirical case archiving, multi-dimensional spectral retrieval, and intelligent similarity ranking.</em>
+</p>
 
 ---
 
-## 🔑 商业合作模式与授权体系
+## 🔬 Real-World Engineering Case Studies
 
-### 1. 标准授权方案与资费体系
+### Root-Cause Diagnosis of Periodic Knocking in a Two-Stage Actuator at 800 RPM
+During quality audit of an automotive 2-stage precision actuator (Input: 800 RPM, Stage 1: 9T/36T, Stage 2: 10T/42T), an intermittent clicking noise occurred at approximately 3.33 Hz (one click every 0.3 seconds):
 
-为满足不同规模制造企业、电机/齿轮箱供应商、质检产线与研发专家的灵活需求，提供极简高效的商业合作与授权方案：
+<p align="center">
+  <img src="docs/images/case_gearbox_800rpm_diagnosis.png" alt="800 RPM Diagnosis Plot" width="100%" />
+  <br>
+  <em>Figure 6: Real-World Test Spectrum at 800 RPM — Severe sideband modulation around Stage 2 meshing frequency fm2 (33.33 Hz) caused by a single chipped tooth on the intermediate pinion.</em>
+</p>
 
-| 合作模式 | 周期 / 报价参考 | 核心定位与适用场景 | 核心权益与超值保障 |
+- **Kinematic Inversion**: Input shaft $f_1 = 13.33	ext{ Hz}$. Stage 1 reduction ratio $i_1 = 4.0$, yielding intermediate shaft frequency $f_2 = 3.33	ext{ Hz}$ (exactly matching the 0.3s acoustic period). Stage 2 fundamental meshing frequency $f_{m2} = 3.33 	imes 10 = 33.33	ext{ Hz}$;
+- **Spectral Evidence**: Pronounced peak at 33.33 Hz with symmetric $\pm 3.33	ext{ Hz}$ rotation sidebands. Spectral Kurtosis spiked to 7.82 (normal threshold: < 4.5);
+- **Physical Verification**: Disassembly under optical microscope revealed a plastic molding ejection burr on a single tooth of the 10T pinion. Replacing the gear eliminated the noise completely, proving 100% diagnostic accuracy.
+
+---
+
+## 🔑 Commercial Licensing & Pricing
+
+Flexible software licensing and engineering consultation packages tailored for manufacturers, suppliers, and R&D centers:
+
+| Cooperation Tier | Pricing (USD / RMB) | Primary Positioning & Use Cases | Included Deliverables & Value Guarantee |
 | :--- | :--- | :--- | :--- |
-| ⚡ **单次远程确诊与 8D 分析报告**<br>*(推荐急需仲裁客户)* | **¥ 2,000**<br>/ 案例次 | 针对急需界定产品异音责任、判断是电机换向跳拍还是齿轮加工缺陷的紧急工况，避免数万元盲目修模 | • 24h 内快速响应出具分析报告<br>• 输出图文并茂、机理确凿的专业 8D 诊断报告<br>• 明确界定责任归属，指导对中与间隙微调 |
-| 🟢 **7天全功能免费试用** | 7 天 (免费申请) | 适用于前期技术方案可行性评估、实际样品录音效果验证 | 开放全功能动力学特征反演与 4 轨异音分离体验 |
-| 🟢 **研发工程专业版** | **¥ 12,800** /年<br>或 **¥ 28,800** 买断 | 适用于研发实验室、主机厂技术中心日常常态化 NVH 测量、异音溯源与设计优化 | 单机一码永久/年度运行、免费小版本 OTA 升级与算法技术支持 |
-| 🟢 **车间质检工位版** | **¥ 21,800** /工位/年<br>或 **¥ 48,000** 买断 | 适用于制造车间常态化测量、下线抽检与出厂品质评级，支持异音健康度状态判定（正常/注意/严重异常） | 工业传感器直连采集、云端数据双向同步（支持非标台架与 PLC 定制对接） |
-| 🟣 **软硬件打包方案** | **¥ 58,000 ~ 68,000**<br>/ 套 (硬件+软件) | 适用于希望开箱即用的制造企业，省去自行选型外设与工控调试的繁琐环节 | 软件商业授权 + 推荐工业测量级传声器/加速度传感器 + 预装专用工控主机 |
+| ⚡ **Single Remote Anomaly Audit & 8D Report**<br>*(Recommended for urgent disputes)* | **$299** / case<br>*(¥ 2,000 fixed price)* | Urgent root-cause diagnosis and supplier liability arbitration (motor commutation vs. gear tooth flaw) to prevent costly mold re-tooling | • 24h rapid response turnaround<br>• Professional 8D engineering diagnostic report<br>• Clear fault attribution and tolerance adjustment guidelines |
+| 🟢 **7-Day Full-Featured Free Evaluation** | **Free (7 Days)** | Technical feasibility evaluation and verification on your own prototype recordings | Full access to drivetrain kinematic inversion, bearing order tracking, and 4-track separation |
+| 🟢 **R&D Engineering Professional Edition** | **$1,850** / yr (¥ 12,800)<br>or **$4,150** Lifetime (¥ 28,800) | For R&D labs and automotive technical centers conducting routine NVH testing, anomaly localization, and design optimization | Node-locked permanent/annual license, free minor OTA upgrades, and algorithmic technical support |
+| 🟢 **Shopfloor EOL Quality Inspection Edition** | **$3,150** / station / yr (¥ 21,800)<br>or **$6,950** Lifetime (¥ 48,000) | For mass-production lines, EOL end-of-line testing, and pass/fail quality grading (Normal / Warning / Critical) | Direct industrial sensor acquisition, bidirectional cloud sync (custom PLC and test-bench integration support) |
+| 🟣 **Turnkey Hardware & Software Bundle** | **$8,500 ~ $9,900** / set<br>*(¥ 58,000 ~ 68,000)* | Turnkey package for manufacturers seeking out-of-the-box deployment without external hardware debugging | Commercial software license + recommended measurement-grade microphone/accelerometer + pre-configured industrial IPC |
 
 ---
 
-### 2. 专项技术支持与合作服务通道
-
-**ANSV Gear-NVH 2027** 不仅是一款工业级声学与振动测试分析软件，更凝聚了微型执行器与精密传动一线工程实战经验。除标准软件授权外，常年为电机、减速器、车载执行器及精密机械制造企业提供以下专项技术支持：
-
-- ⚡ **单次远程异音确诊与 8D 诊断报告服务（急需排查定责推荐）**：  
-  针对批量试产、终端客诉或装车路试中突发的敲击跳拍、高频挤压啸叫、侧隙打齿等偶发异音，客户只需提供 3~10 秒现场录音或加速度计振动波形，**24 小时内快速响应**。通过微观时频深度解调与运动学反演，精准输出机理确凿的专业 8D 诊断报告，明确界定责任归属（电机换向跳拍 vs 齿轮齿形齿向缺陷），避免数万元盲目修模与跨部门推诿。
-
-- 🛠️ **车间质检台架软硬件选型与测试对接指导**：  
-  为制造企业车间常态化下线抽检、离线测试工位提供**测量级传声器/加速度传感器选型推荐、低噪隔音工装制作建议、工业专用工控机预装及定制测试对接建议**。
-
-- 🎓 **高校与科研院所扶持计划**：  
-  为微特电机、机械传动、车辆工程、机械电子与声学振动相关高校重点实验室与科研院所提供**专属教育优惠与学术授权支持**，扶持青年学者与研究生科研攻关。
-
----
-
-### 3. 极速激活步骤
+### Rapid Activation Process
 
 ```
-步骤 1: 下载解压并双击启动主程序 Gear_Acoustic_App.exe，直接进入工作台浏览界面
+Step 1: Download, extract, and launch Gear_Acoustic_App.exe
    │
    ▼
-步骤 2: 点击右上角【关于系统】或在首次导入计算时，点击【复制机器码】(如: GA-98F2-3A1B-2026)
+Step 2: Click [About System] in the top toolbar or click [Copy Machine Code] on first launch (e.g., GA-98F2-3A1B-2026)
    │
    ▼
-步骤 3: 扫描微信二维码或发送邮件，申请 7 天全功能体验试用码或商业授权激活码
+Step 3: Contact our team via WhatsApp, WeChat, or Email to receive your 7-day trial or commercial license key
    │
    ▼
-步骤 4: 将收到的激活码粘贴至软件输入框，点击【立即激活授权】，秒级解锁高精动力学诊断与计算！
+Step 4: Paste your license key into the activation prompt and click [Activate Now] for instant access!
 ```
 
 ---
 
-## 🎙️ 硬件选型与测试规范推荐
+## 🎙️ Recommended Hardware & Testing Guidelines
 
-为了在工业现场与实验台架上获得最佳信噪比与精准的频域表现，建议搭配专业声学/振动采集设备：
+To ensure optimal signal-to-noise ratio in industrial environments, the following hardware is recommended:
 
-| 设备类型 | 推荐型号举例 | 核心优势与连接方式 | 适用场景 |
+| Hardware Type | Recommended Models | Key Advantages & Connection | Recommended Use Case |
 | :--- | :--- | :--- | :--- |
-| **标准测量级传声器** | **miniDSP UMIK-1 / UMIK-2** <br>或 **Dayton Audio UMM-6** | USB 直连免驱、带工厂校准文件、平坦频响（20Hz~20kHz）、即插即用 | 研发实验室声学测试、微型减速机下线抽检 |
-| **工业级声级计 / 传感器** | 带 Line-Out 模拟输出的声级计 <br>+ USB 高信噪比采集卡 | 宽动态范围、符合 IEC 61672 标准、带物理防风罩与工业屏蔽线 | 高噪声车间现场巡检、环境背景音超标仲裁 |
-| **高频加速度传感器** | IEPE 压电加速度传感器 <br>+ USB 动态信号采集仪 | 直接吸附于齿轮箱壳体、电机端盖，彻底屏蔽空气声与环境噪音 | 结构冲击振动监测、齿面敲击早期微损伤捕捉 |
+| **Measurement-Grade Microphone** | **miniDSP UMIK-1 / UMIK-2** <br>or **Dayton Audio UMM-6** | USB direct connect, factory calibration file included, flat frequency response (20 Hz ~ 20 kHz), plug-and-play | R&D laboratory acoustic testing, offline sample auditing |
+| **Industrial Sound Level Meter** | Sound level meter with Line-Out <br>+ High-SNR USB Audio Interface | Wide dynamic range, compliant with IEC 61672, industrial shielding | High-noise factory floor auditing, ambient noise threshold arbitration |
+| **High-Frequency Accelerometer** | IEPE Piezoelectric Accelerometer <br>+ USB Dynamic Signal Analyzer | Magnetic attachment to gearbox casing, impervious to airborne background noise | Direct structural vibration monitoring, early tooth micro-defect detection |
 
-### 测点布置工程建议：
-1. **传声器距离**：声学测量传声器建议正对齿轮箱啮合区壳体，距离表面 **30mm ~ 100mm** 最佳，避免气流直吹；
-2. **背景降噪**：对于高噪音车间，建议制作简单吸音海绵隔音罩包裹被测执行器，或优先选用壳体振动加速度计直接接触测量；
-3. **稳态工况采样**：建议在机构转速达到设定稳定转速后，采集 **3 ~ 10 秒** 音频样本，以保证获得足够且平稳的旋转周期。
+### Measurement Best Practices:
+1. **Microphone Distance**: Position the microphone **30 mm to 100 mm** from the gearbox meshing zone casing, avoiding direct airflow;
+2. **Ambient Noise Shielding**: In high-noise workshops, use a portable acoustic enclosure around the test article or switch to a contact accelerometer;
+3. **Steady-State Sampling**: Acquire **3 to 10 seconds** of data after the drive motor reaches steady rotational speed to capture sufficient rotation cycles.
 
 ---
 
-## 📬 技术支持与专属联系通道 (Contact Us)
+## 📬 Technical Support & Contact Channels (Contact Us)
 
-如果您在使用 **ANSV Gear-NVH 2027** 过程中有任何技术疑问、算例工程导入、商业授权采购、单次远程确诊或工程项目合作，欢迎通过以下官方通道与研发团队取得联系：
+For technical support, custom project consultations, commercial licensing, or engineering partnerships, reach our engineering team via:
 
 <div align="center">
 
-| 1. 📢 官方微信公众号 | 2. 💬 工程师专属微信咨询 | 3. 🌐 WhatsApp (International) |
+| 1. 🌐 WhatsApp (International) | 2. 💬 Dedicated Engineer WeChat | 3. 📢 Official WeChat Channel |
 | :---: | :---: | :---: |
-| <img src="docs/images/official-account-qr.jpg" width="160" alt="官方公众号" /> | <img src="docs/images/wechat_personal_qr.png" width="160" alt="工程师微信" /> | <img src="docs/images/whatsapp_qr.png" width="160" alt="WhatsApp" /> |
-| **公众号**：`ANSV微型执行器` | **微信号**：`ansv-net` | **WhatsApp**：`ansv_net` |
-| 硬核电磁与机械NVH一线实战复盘 | 一对一技术支持、商业授权与工程合作 | Global direct technical support for overseas & APAC partners |
+| <img src="docs/images/whatsapp_qr.png" width="160" alt="WhatsApp" /> | <img src="docs/images/wechat_personal_qr.png" width="160" alt="WeChat" /> | <img src="docs/images/official-account-qr.jpg" width="160" alt="WeChat Official Account" /> |
+| **WhatsApp**: `ansv_net` | **WeChat ID**: `ansv-net` | **Account**: `ANSV微型执行器` |
+| Direct global technical support for overseas & APAC partners | 1-on-1 technical consultation, licensing & project collaboration | Hardcore NVH engineering case reviews & technical articles |
 
 </div>
 
-- **官方网站**：[https://ansv.net](https://ansv.net)
-- **GitHub 官方发布仓库**：[tonychen5577-tech/gear-nvh](https://github.com/tonychen5577-tech/gear-nvh)
-- **技术支持与商务合作邮箱**：[support@ansv.net](mailto:support@ansv.net)
+- **Official Website**: [https://ansv.net](https://ansv.net)
+- **GitHub Repository**: [tonychen5577-tech/gear-nvh](https://github.com/tonychen5577-tech/gear-nvh)
+- **Technical Support & Business Email**: [support@ansv.net](mailto:support@ansv.net)
 
 ---
 
 <div align="center">
-  <sub>Copyright © 2026 ANSV Transmissions & Micro-Actuators Lab (ansv.net). All rights reserved. | 工业测控 · 精密诊断 · 追求卓越</sub>
+  <sub>Copyright © 2026 ANSV Transmissions & Micro-Actuators Lab (ansv.net). All rights reserved. | Industrial Metrology · Numerical Simulation · Engineering Excellence</sub>
 </div>
