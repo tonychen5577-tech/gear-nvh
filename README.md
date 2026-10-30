@@ -33,7 +33,7 @@ Traditional industrial inspections heavily depend on "subjective auditory judgme
 
 ANSV Gear-NVH integrates **high-precision dynamic signal acquisition, high-resolution kinematic frequency decomposition, micro-transient energy ratio analysis, and physical root-cause reasoning**:
 
-Without complicated configuration, simply enter the input rotational speed and transmission tooth parameters. The system automatically performs kinematic inversion across the entire drive train to deduce shaft rotational frequencies, gear meshing frequencies ($f_m$), modulation sidebands, rolling bearing defect orders (BPFO, BPFI, BSF, FTF), and motor electromagnetic/commutation harmonics. It pinpoints the **exact failure stage and root cause**, delivering objective, quantitative, and deterministic scientific evidence for mechanical transmission quality control.
+Without complicated configuration, simply enter the input rotational speed and transmission tooth parameters. The system automatically performs kinematic inversion across the entire drive train to deduce shaft rotational frequencies, gear meshing frequencies (<code>f<sub>m</sub></code>), modulation sidebands, rolling bearing defect orders (BPFO, BPFI, BSF, FTF), and motor electromagnetic/commutation harmonics. It pinpoints the **exact failure stage and root cause**, delivering objective, quantitative, and deterministic scientific evidence for mechanical transmission quality control.
 
 <p align="center">
   <img src="docs/images/main_gui_diagnosis.jpg" alt="ANSV Gear-NVH 2027 Workstation UI" width="100%" />
@@ -49,7 +49,7 @@ Without complicated configuration, simply enter the input rotational speed and t
 - **Scalable Stage Hierarchy**: Supports single-stage, two-stage, three-stage, and multi-stage cascaded transmission mechanisms with dynamic addition and removal of stages;
 - **Multi-Topology Support**: Natively accommodates **spur gears, helical gears, planetary gearboxes, worm-and-gear reducers, and step-up overdrive gearboxes**;
 - **Full Drivetrain Bearing Library & Order Inversion**: Assign standard rolling bearings to every shaft and motor rotor (built-in micro-bearing models including NSK 623ZZ, 681X, 692, 608, with custom parameter expansion). Automatically calculates four primary bearing defect orders: **Ball Pass Frequency Outer (BPFO), Ball Pass Frequency Inner (BPFI), Ball Spin Frequency (BSF), and Fundamental Train Frequency (FTF)**, automatically staked on the FFT spectrum;
-- **Full Kinematic Frequency Inversion**: Dynamically resolves shaft speeds, individual stage gear ratios, total transmission ratio, and fundamental meshing frequencies ($f_m$) based on input RPM.
+- **Full Kinematic Frequency Inversion**: Dynamically resolves shaft speeds, individual stage gear ratios, total transmission ratio, and fundamental meshing frequencies (<code>f<sub>m</sub></code>) based on input RPM.
 
 <p align="center">
   <img src="docs/images/bearing_library_and_diagnostics.jpg" alt="Bearing Library Manager" width="100%" />
@@ -75,8 +75,8 @@ Without complicated configuration, simply enter the input rotational speed and t
 ### 3. Pure Motor Standalone Testing & Motor-Gearbox Decoupling
 - **Decoupling Motor Harmonics from Gearbox Flaws**: Resolves disputes between motor suppliers and gearbox assemblers over noise accountability: **"Is the clicking caused by motor brush commutation or tooth runout?"**
 - **Brushless Motor Slot & Pole Harmonics**: Computes cogging torque orders and phase-switching harmonics from stator slots and rotor poles;
-- **Brushed DC Commutation Pulse Staking**: Accurately tracks brush-commutator friction pulses ($f_c = 	ext{RPM}/60 	imes 	ext{segments}$);
-- **Instant Arbitration**: If peaks match commutation harmonics while gear mesh frequencies ($f_m$) remain flat, gear defects are 100% ruled out, preventing tens of thousands in unnecessary mold re-tooling costs.
+- **Brushed DC Commutation Pulse Staking**: Accurately tracks brush-commutator friction pulses (<code>f<sub>c</sub> = RPM / 60 × segments</code>);
+- **Instant Arbitration**: If peaks match commutation harmonics while gear mesh frequencies (<code>f<sub>m</sub></code>) remain flat, gear defects are 100% ruled out, preventing tens of thousands in unnecessary mold re-tooling costs.
 
 <p align="center">
   <img src="docs/images/case_pure_motor_diagnostics.png" alt="Pure Motor Standalone Diagnostics" width="100%" />
@@ -97,7 +97,7 @@ Without complicated configuration, simply enter the input rotational speed and t
 ---
 
 ### 5. ⚡ Tacholess Order Tracking & Campbell Modal Resonance Workbench
-- **Encoder-Free Tacholess Ridge Tracking**: Built-in 45 Hz 4th-order zero-phase high-pass anti-impact filter, spectral continuum median whitening, and peak-minus-trough multi-harmonic comb salience with **Viterbi dynamic programming** to extract instantaneous shaft speed trajectories $RPM(t)$ directly from acoustic or vibration signals without optical encoders;
+- **Encoder-Free Tacholess Ridge Tracking**: Built-in 45 Hz 4th-order zero-phase high-pass anti-impact filter, spectral continuum median whitening, and peak-minus-trough multi-harmonic comb salience with **Viterbi dynamic programming** to extract instantaneous shaft speed trajectories `RPM(t)` directly from acoustic or vibration signals without optical encoders;
 - **COT Angle-Domain Order Spectrum**: Resamples non-stationary time waveforms at constant angular increments (dimensionless shaft Orders X), completely eliminating **spectral smearing** under run-up/coast-down sweeps or load fluctuations and delivering **+3 to +18.2 dB** peak sharpening gain over raw unresampled FFT;
 - **Campbell 3D Diagram & Modal Resonance Bullseye**: Switch seamlessly between **Speed Domain (RPM)** and **Time Domain (s)**, overlay theoretical gear order rays (`1.0X`, `1×GMF`, `2×GMF`), and automatically pinpoint **🔥 Order-Structure Modal Resonance Crossings** where diagonal order rays intersect stationary housing natural frequency bands;
 - **Characteristic Order Slices & Data Export**: Quantitatively tracks narrowband order energy vs. RPM/Time to separate pure forced gear excitation from structural casing resonance, featuring a built-in Run-up Resonance Demo generator, full CSV export, and high-res snapshot capture.
@@ -134,8 +134,8 @@ During quality audit of an automotive 2-stage precision actuator (Input: 800 RPM
   <em>Figure 6: Real-World Test Spectrum at 800 RPM — Severe sideband modulation around Stage 2 meshing frequency fm2 (33.33 Hz) caused by a single chipped tooth on the intermediate pinion.</em>
 </p>
 
-- **Kinematic Inversion**: Input shaft $f_1 = 13.33	ext{ Hz}$. Stage 1 reduction ratio $i_1 = 4.0$, yielding intermediate shaft frequency $f_2 = 3.33	ext{ Hz}$ (exactly matching the 0.3s acoustic period). Stage 2 fundamental meshing frequency $f_{m2} = 3.33 	imes 10 = 33.33	ext{ Hz}$;
-- **Spectral Evidence**: Pronounced peak at 33.33 Hz with symmetric $\pm 3.33	ext{ Hz}$ rotation sidebands. Spectral Kurtosis spiked to 7.82 (normal threshold: < 4.5);
+- **Kinematic Inversion**: Input shaft `f1 = 13.33 Hz`. Stage 1 reduction ratio `i1 = 4.0`, yielding intermediate shaft frequency `f2 = 3.33 Hz` (exactly matching the 0.3s acoustic period). Stage 2 fundamental meshing frequency `fm2 = 3.33 × 10 = 33.33 Hz`;
+- **Spectral Evidence**: Pronounced peak at 33.33 Hz with symmetric `±3.33 Hz` rotation sidebands. Spectral Kurtosis spiked to 7.82 (normal threshold: < 4.5);
 - **Physical Verification**: Disassembly under optical microscope revealed a plastic molding ejection burr on a single tooth of the 10T pinion. Replacing the gear eliminated the noise completely, proving 100% diagnostic accuracy.
 
 ---
