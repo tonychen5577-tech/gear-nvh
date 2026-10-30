@@ -96,7 +96,21 @@ Without complicated configuration, simply enter the input rotational speed and t
 
 ---
 
-### 5. CBR Expert Case Management Hub & Automated 8D Reporting
+### 5. ⚡ Tacholess Order Tracking & Campbell Modal Resonance Workbench
+- **Encoder-Free Tacholess Ridge Tracking**: Built-in 45 Hz 4th-order zero-phase high-pass anti-impact filter, spectral continuum median whitening, and peak-minus-trough multi-harmonic comb salience with **Viterbi dynamic programming** to extract instantaneous shaft speed trajectories $RPM(t)$ directly from acoustic or vibration signals without optical encoders;
+- **COT Angle-Domain Order Spectrum**: Resamples non-stationary time waveforms at constant angular increments (dimensionless shaft Orders X), completely eliminating **spectral smearing** under run-up/coast-down sweeps or load fluctuations and delivering **+3 to +18.2 dB** peak sharpening gain over raw unresampled FFT;
+- **Campbell 3D Diagram & Modal Resonance Bullseye**: Switch seamlessly between **Speed Domain (RPM)** and **Time Domain (s)**, overlay theoretical gear order rays (`1.0X`, `1×GMF`, `2×GMF`), and automatically pinpoint **🔥 Order-Structure Modal Resonance Crossings** where diagonal order rays intersect stationary housing natural frequency bands;
+- **Characteristic Order Slices & Data Export**: Quantitatively tracks narrowband order energy vs. RPM/Time to separate pure forced gear excitation from structural casing resonance, featuring a built-in Run-up Resonance Demo generator, full CSV export, and high-res snapshot capture.
+
+<p align="center">
+  <img src="docs/images/gear_nvh_order_campbell_workbench.png" alt="Tacholess Order Tracking & Campbell Resonance Workbench" width="100%" />
+  <br>
+  <em>Figure 4b: Standalone [⚡ Order & Resonance Deep Analysis Workbench] — 2×2 synchronized diagnostic quad-view featuring Viterbi instantaneous RPM ridge tracking, Campbell diagram with resonance bullseye, COT razor-sharp order spectrum (+18.2 dB anti-smearing gain), and multi-stage order slices.</em>
+</p>
+
+---
+
+### 6. CBR Expert Case Management Hub & Automated 8D Reporting
 - **Case-Based Reasoning (CBR)**: Curates historical gearbox and actuator fault signatures, creating an institutional knowledge base;
 - **Intelligent Spectral Matching**: Searches unseen spectra against historical databases to recall similar failure modes (e.g., uneven shrinkage in injection-molded gears, bearing tilt, backlash binding) and proven corrective actions;
 - **Automated 8D Engineering Diagnostic Report**: One-click generation of customer-ready 8D reports containing time-domain metrics, kinematic evidence chains, FFT order charts, and tolerance tuning recommendations.
@@ -152,7 +166,7 @@ Step 2: Click [About System] in the top toolbar or click [Copy Machine Code] on 
 Step 3: Contact our team via WhatsApp, WeChat, or Email to receive your 7-day trial or commercial license key
    │
    ▼
-Step 4: Paste your license key into the activation prompt and click [Activate Now] for instant access!
+Step 4: Supports instant 3-second cloud remote push activation (auto-unlocks with a pop-up without restarting) or manual license key activation (securely persisted in %LOCALAPPDATA%\GearAcoustic\license.lic across upgrades)!
 ```
 
 ---
