@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANSV Gear-NVH 2027 官方用户操作手册与机理指南</title>
+<style>
+    :root {
+        --primary: #0284C7;
+        --primary-dark: #0369A1;
+        --primary-light: #F0F9FF;
+        --primary-border: #BAE6FD;
+        --text-main: #0F172A;
+        --text-sub: #334155;
+        --text-muted: #64748B;
+        --bg-body: #F8FAFC;
+        --bg-card: #FFFFFF;
+        --border-color: #E2E8F0;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+        color: var(--text-main);
+        background-color: var(--bg-body);
+        line-height: 1.7;
+        font-size: 14.5px;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+    }
+
+    /* 顶部悬浮工具栏 (Sticky Header) */
+    .top-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 10px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: var(--shadow-sm);
+    }
+    .top-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 15px;
+        color: var(--primary-dark);
+        text-decoration: none;
+    }
+    .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+    }
+    .btn-print {
+        background-color: #F0FDF4;
+        border-color: #BBF7D0;
+        color: #15803D;
+    }
+    .btn-print:hover {
+        background-color: #DCFCE7;
+        color: #166534;
+        box-shadow: var(--shadow-sm);
+    }
+    .btn-link {
+        background-color: var(--primary-light);
+        border-color: var(--primary-border);
+        color: var(--primary);
+    }
+    .btn-link:hover {
+        background-color: #E0F2FE;
+        color: var(--primary-dark);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* 主容器 */
+    .main-container {
+        max-width: 1140px;
+        margin: 24px auto 60px auto;
+        padding: 0 20px;
+    }
+
+    /* 顶部 Hero Banner */
+    .hero-banner {
+        background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+        color: #FFFFFF;
+        border-radius: 12px;
+        padding: 36px 32px;
+        margin-bottom: 28px;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-banner::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 70%);
+        pointer-events: none;
+    }
+    .hero-badge {
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #FFFFFF;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+        backdrop-filter: blur(4px);
+    }
+    .hero-banner h1 {
+        margin: 0 0 10px 0;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .hero-sub {
+        font-size: 14.5px;
+        font-weight: 500;
+        color: #E0F2FE;
+        margin: 6px 0;
+    }
+    .hero-desc {
+        font-size: 13px;
+        color: #BAE6FD;
+        margin-top: 14px;
+        line-height: 1.6;
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* 快速导航网格卡片 */
+    .nav-card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 20px 24px;
+        margin-bottom: 28px;
+        box-shadow: var(--shadow-sm);
+    }
+    .nav-title {
+        font-size: 14.5px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 10px 16px;
+    }
+    .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background-color: #F8FAFC;
+        border: 1px solid transparent;
+        text-decoration: none;
+        color: var(--primary-dark);
+        font-size: 13.5px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    .nav-item:hover {
+        background-color: var(--primary-light);
+        border-color: var(--primary-border);
+        color: var(--primary);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* 正文内容卡片 */
+    .section-card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 30px 34px;
+        margin-bottom: 28px;
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow 0.2s ease;
+    }
+    .section-card:hover {
+        box-shadow: var(--shadow-md);
+    }
+
+    /* 标题层级 */
+    h2 {
+        color: var(--text-main);
+        font-size: 19px;
+        font-weight: 800;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 10px;
+        margin-top: 0;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    h3 {
+        color: var(--primary);
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 24px;
+        margin-bottom: 12px;
+    }
+
+    p {
+        margin: 10px 0 14px 0;
+        font-size: 14px;
+        color: var(--text-sub);
+        line-height: 1.75;
+    }
+    ul, ol {
+        margin: 10px 0 16px 24px;
+        padding: 0;
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    li {
+        margin-bottom: 8px;
+        line-height: 1.7;
+    }
+
+    /* 数据表格 */
+    table.modern-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin: 18px 0;
+        font-size: 13.5px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    table.modern-table th, table.modern-table td {
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: top;
+    }
+    table.modern-table th {
+        background-color: #F1F5F9;
+        font-weight: 700;
+        color: var(--text-main);
+        font-size: 13px;
+        border-top: none;
+    }
+    table.modern-table tr:last-child td {
+        border-bottom: none;
+    }
+    table.modern-table tr:nth-child(even) td {
+        background-color: #F8FAFC;
+    }
+    table.modern-table tr:hover td {
+        background-color: #F0F9FF;
+    }
+
+    /* 提示卡片 Callouts */
+    .callout {
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin: 18px 0;
+        font-size: 13.5px;
+        line-height: 1.65;
+        border-left: 4px solid;
+    }
+    .callout-info {
+        background-color: var(--primary-light);
+        border-color: var(--primary);
+        color: var(--primary-dark);
+    }
+    .callout-tip {
+        background-color: #ECFDF5;
+        border-color: #059669;
+        color: #047857;
+    }
+    .callout-warning {
+        background-color: #FFFBEB;
+        border-color: #D97706;
+        color: #B45309;
+    }
+
+    /* 高清大图居中卡片 */
+    .figure-container {
+        text-align: center;
+        margin: 24px 0;
+        padding: 16px;
+        background-color: #F8FAFC;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+    }
+    .figure-container img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #CBD5E1;
+        border-radius: 6px;
+        box-shadow: var(--shadow-sm);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .figure-container img:hover {
+        transform: scale(1.01);
+        box-shadow: var(--shadow-md);
+    }
+    .figure-caption {
+        margin-top: 10px;
+        font-size: 12.5px;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    /* 3 列二维码联系人卡片 */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        margin: 24px 0;
+    }
+    .contact-card {
+        background-color: #F8FAFC;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.2s ease;
+    }
+    .contact-card:hover {
+        border-color: var(--primary-border);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
+    .contact-card img {
+        width: 140px;
+        height: 140px;
+        border: 1px solid #CBD5E1;
+        border-radius: 6px;
+        padding: 4px;
+        background: #FFFFFF;
+    }
+    .contact-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-top: 12px;
+    }
+    .contact-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 4px;
+        line-height: 1.5;
+    }
+
+    /* 底部版权 */
+    .footer {
+        margin-top: 50px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    /* 打印专用样式 (Ctrl + P 一键高精 PDF) */
+    @media print {
+        body {
+            background-color: #FFFFFF;
+            font-size: 12pt;
+            color: #000000;
+        }
+        .top-toolbar, .nav-card, .btn-action {
+            display: none !important;
+        }
+        .main-container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .section-card {
+            border: none;
+            box-shadow: none;
+            padding: 12px 0;
+            page-break-inside: avoid;
+        }
+        .hero-banner {
+            background: #F1F5F9 !important;
+            color: #0F172A !important;
+            box-shadow: none;
+            border: 1px solid #CBD5E1;
+        }
+        .hero-banner h1, .hero-sub, .hero-desc {
+            color: #0F172A !important;
+        }
+        .hero-badge {
+            background: #E2E8F0 !important;
+            color: #0F172A !important;
+        }
+        .figure-container img {
+            max-width: 95% !important;
+            box-shadow: none !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- 顶部 Sticky 工具栏 -->
+<div class="top-toolbar">
+    <a href="#" class="top-brand">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        ANSV Gear-NVH 2027 官方手册
+    </a>
+    <div class="top-actions">
+        <button class="btn-action btn-print" onclick="window.print()">
+            🖨️ 打印 / 导出 PDF (Ctrl+P)
+        </button>
+        <a href="https://ansv.net" target="_blank" class="btn-action btn-link">
+            🌐 官方门户 (ansv.net)
+        </a>
+        <a href="https://github.com/tonychen5577-tech/gear-nvh" target="_blank" class="btn-action btn-link">
+            💻 GitHub 仓库
+        </a>
+    </div>
+</div>
+
+<div class="main-container">
+
+    <!-- Hero 标题 Banner -->
+    <div class="hero-banner">
+        <div class="hero-badge">⚙️ 2027 官方商业正式版 | Build 20261025B1</div>
+        <h1>ANSV Gear-NVH 2027 官方用户操作手册与机理指南</h1>
+        <div class="hero-sub">Industrial NVH Acoustic & Vibration Intelligent Diagnostic Workstation</div>
+        <div class="hero-desc">
+            面向精密减速器、车载微型摆动执行器、工业齿轮箱及旋转机械打造的软硬件一体化声学与振动智能诊断工作站。<br>
+            集成全传动链动力学反演、无转速计阶次追踪与 Campbell 模态共振工作台、滚动轴承阶次库、纯电机解耦、往返多行程自适应巡检与 Acoustic-Insight 4 轨声学分离。
+        </div>
+    </div>
+
+    <!-- 快速导航网格 -->
+    <div class="nav-card">
+        <div class="nav-title">📑 快速导航索引 (点击直达对应章节)</div>
+        <div class="nav-grid">
+            <a href="#sec-overview" class="nav-item">1. 系统概述与技术架构</a>
+            <a href="#sec-quickstart" class="nav-item">2. 软件主界面与快速上手</a>
+            <a href="#sec-reciprocating" class="nav-item">3. 往返多行程自适应巡检</a>
+            <a href="#sec-bearing" class="nav-item">4. 滚动轴承阶次分析与数据库</a>
+            <a href="#sec-motor" class="nav-item">5. 纯电机与齿轮箱同台解耦</a>
+            <a href="#sec-separation" class="nav-item">6. 4 轨声学分离引擎</a>
+            <a href="#sec-order-campbell" class="nav-item">6.5 ⚡ 阶次与 Campbell 共振工作台</a>
+            <a href="#sec-cbr" class="nav-item">7. 专家案例库与实战分析</a>
+            <a href="#sec-cases" class="nav-item">8. 典型工程案例实录</a>
+            <a href="#sec-pricing" class="nav-item">9. 商业合作模式与授权资费</a>
+            <a href="#sec-contact" class="nav-item">10. 技术支持与专属联系通道</a>
+        </div>
+    </div>
+
+    <!-- 1. 系统概述 -->
+    <div class="section-card" id="sec-overview">
+        <h2>1. 系统概述与技术架构</h2>
+        <p>
+            <b>ANSV Gear-NVH 2027</b> 专为解决传统工业 NVH 诊断中“依靠老师傅听音凭感觉”、“缺乏传动运动学依据”、“电机电磁跳拍与齿轮机械磕碰混淆难辨”等痛点而研发。
+        </p>
+        <p>
+            系统通过严格的机械动力学公式，正向推演多级传动链的各级轴频、齿轮啮合基频（<i>f<sub>m</sub></i>）、啮合阶次，并深度集成滚动轴承四大特征阶次（BPFO、BPFI、BSF、FTF）及无刷/有刷电机电磁特征（极槽比、换向阶次），实现“<b>数模驱动、精准溯源、一键出具 8D 报告</b>”。
+        </p>
+
+        <div class="callout callout-info">
+            <b>💡 核心技术优势：</b>
+            <ul>
+                <li><b>毫秒级传动链反演</b>：输入电机输入轴转速与各级齿数，全自动推演全传动链所有运动学频率与调频边带；</li>
+                <li><b>无刷/有刷电机同台解耦</b>：自动剥离定转子极槽电磁谐波、电枢电刷换向跳拍，精准区分电机本身问题还是齿轮箱问题；</li>
+                <li><b>微观时域脉冲敏感度量</b>：结合滑动能量比与分帧峭度（Kurtosis）算法，即使在强环境底噪下也能精准捕获微弱硬磕碰；</li>
+                <li><b>Acoustic-Insight 4 轨异音分离</b>：提供突发敲击轨、消除敲击后底噪轨、低频律动轨与原音轨，声画同步试听；</li>
+                <li><b>开箱即用绿色便携</b>：单目录便携分发，无需繁琐安装或配置环境变量，内置完备的离线帮助与工程案例库。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 2. 主界面与快速上手 -->
+    <div class="section-card" id="sec-quickstart">
+        <h2>2. 软件主界面与快速上手指南</h2>
+        <p>工作站主界面划分为清晰的功能区域：顶部全局状态与控制栏、左侧传动参数配置与模式切换区、中央高精时频工程视口、右侧诊断指标与 8D 报告输出区。</p>
+
+        <div class="figure-container">
+            <img src="images/main_gui_diagnosis.jpg" alt="主界面全貌">
+            <div class="figure-caption">图 2-1: ANSV Gear-NVH 2027 智能诊断工作站主界面全貌与动力学反演区</div>
+        </div>
+
+        <h3>五步快速诊断流程：</h3>
+        <ol>
+            <li><b>设置机械参数与工况模式</b>：
+                在左侧选择测试模式（多级齿轮箱 / 纯电机单体），输入输入轴工况转速（如 1200 RPM），依次填入各级主动齿数与被动齿数（系统支持 1~6 级任意扩展）；
+            </li>
+            <li><b>导入测量波形或实时采集</b>：
+                点击【📂 导入音频/振动数据】载入 WAV/CSV 格式的传感器信号，或点击【🎙️ 启动硬件采集】直接通过工业采集卡录制；
+            </li>
+            <li><b>一键执行多维动力学诊断</b>：
+                点击【🚀 开始执行诊断分析】，系统将自动运行短时傅里叶变换（STFT）、包络谱解调、能量比检测与峭度扫描；
+            </li>
+            <li><b>交互式频谱标记与阶次核验</b>：
+                在中央工程视口中，系统会自动标出各级啮合基频、轴频及轴承/电机特征线，支持鼠标滚轮无级缩放、双击游标测距；
+            </li>
+            <li><b>试听分离音轨并导出 8D 报告</b>：
+                点击【🎧 声学分离试听】独立倾听异常敲击音轨，最后点击【📑 导出 8D 诊断报告】生成客户认可的标准工程报告。
+            </li>
+        </ol>
+    </div>
+
+    <!-- 3. 往返多行程自适应巡检 -->
+    <div class="section-card" id="sec-reciprocating">
+        <h2>3. 往返多行程自适应动态巡检</h2>
+        <p>
+            针对车载空调风门执行器、座椅微型驱动器、工业阀门调节器等<b>往复小角度摆动机构</b>，执行器在行程端点存在减速换向、死区回差与启停冲击，传统全段平均 FFT 极易被换向冲击掩盖微小齿面缺陷。
+        </p>
+
+        <div class="figure-container">
+            <img src="images/case_reciprocating_stroke_inspection.png" alt="往返巡检">
+            <div class="figure-caption">图 3-1: 往返多行程自适应动态巡检——正反转行程区间自适应切分与平稳期能谱峭度统计</div>
+        </div>
+
+        <div class="callout callout-tip">
+            <b>🔬 巡检技术核心：</b>
+            <ul>
+                <li><b>自适应行程边界识别</b>：基于瞬时能量包络与速度过零点算法，自动将数个循环周期的音频/振动信号精准切割为“正向行程（Forward）”与“反向行程（Reverse）”；</li>
+                <li><b>端点冲击隔离与稳态截取</b>：自动滤除端点换向和机械限位硬碰撞产生的虚假超标峭度，截取转速平稳运行核心段；</li>
+                <li><b>正反向非对称磨损评估</b>：分别统计正转与反转各行程的齿轮啮合能量与冲击频度，精准判断齿轮啮合驱动面与反驱动面的磨损差异。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 4. 滚动轴承阶次分析与数据库 -->
+    <div class="section-card" id="sec-bearing">
+        <h2>4. 滚动轴承动力学特征阶次分析与数据库</h2>
+        <p>
+            旋转机械中的异音不仅来源于齿轮啮合，各类微型支承深沟球轴承、角接触轴承的点蚀和剥落也是导致高频刺耳噪音的重要源头。
+            工作站内置了标准工业滚动轴承特征参数数据库，并提供自定义轴承节圆计算器。
+        </p>
+
+        <div class="figure-container">
+            <img src="images/bearing_library_and_diagnostics.jpg" alt="轴承数据库">
+            <div class="figure-caption">图 4-1: 轴承数据库管理器 (Bearing Library) 与外圈/内圈/滚子/保持架特征阶次智能推导</div>
+        </div>
+
+        <h3>轴承四大特征阶次公式表：</h3>
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th style="width: 14%;">特征频率</th>
+                    <th style="width: 24%;">全称</th>
+                    <th style="width: 36%;">物理含义与失效特征</th>
+                    <th style="width: 26%;">动力学计算基准</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>BPFO</b></td>
+                    <td>Ball Pass Frequency Outer</td>
+                    <td>外圈滚道缺陷通过频率（点蚀/剥落导致固定周期脉冲）</td>
+                    <td>0.5 · Z · fr · (1 - (d/D)·cosα)</td>
+                </tr>
+                <tr>
+                    <td><b>BPFI</b></td>
+                    <td>Ball Pass Frequency Inner</td>
+                    <td>内圈滚道缺陷通过频率（随轴旋转，常伴有轴频调制边带）</td>
+                    <td>0.5 · Z · fr · (1 + (d/D)·cosα)</td>
+                </tr>
+                <tr>
+                    <td><b>BSF</b></td>
+                    <td>Ball Spin Frequency</td>
+                    <td>滚动体自转自碰频率（单个滚珠局部剥落时双向敲击）</td>
+                    <td>0.5 · (D/d) · fr · (1 - ((d/D)·cosα)²)</td>
+                </tr>
+                <tr>
+                    <td><b>FTF</b></td>
+                    <td>Fundamental Train Frequency</td>
+                    <td>保持架公转频率（保持架断裂或松动时引发的超低频律动）</td>
+                    <td>0.5 · fr · (1 - (d/D)·cosα)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 12px; color: var(--text-muted);">
+            * 注：<i>Z</i> 为滚动体个数，<i>d</i> 为滚珠直径，<i>D</i> 为轴承节圆直径，<i>α</i> 为接触角，<i>fr</i> 为对应安装轴的轴频。
+        </p>
+    </div>
+
+    <!-- 5. 纯电机与齿轮箱同台解耦 -->
+    <div class="section-card" id="sec-motor">
+        <h2>5. 纯电机与齿轮箱同台解耦引擎</h2>
+        <p>
+            在实际研发与产线出厂检验中，主机厂与电机供应商常因产品杂音责任归属产生争议：<b>“究竟是电机自带的电磁换向杂音，还是齿轮箱装配或注塑偏心所致？”</b>
+        </p>
+        <p>
+            ANSV Gear-NVH 独创的<b>纯电机单体测试模式</b>与<b>电机-齿轮同台解耦引擎</b>，能够一秒拨云见日：
+        </p>
+
+        <div class="figure-container">
+            <img src="images/case_pure_motor_diagnostics.png" alt="纯电机解耦">
+            <div class="figure-caption">图 5-1: 纯电机单体运行模式——定转子极槽电磁谐波、电枢电刷换向跳拍与机械解耦分析</div>
+        </div>
+
+        <div class="callout callout-info">
+            <b>🔍 解耦判据要点：</b>
+            <ul>
+                <li><b>电枢换向跳拍（Commutation Pulses）</b>：微型有刷直流电机换向片与碳刷摩擦火花会激发出固定的换向频率（<i>f<sub>c</sub> = 转速/60 × 换向片数</i>），其能量集中在高频宽带冲击；</li>
+                <li><b>无刷电机定转子槽谐波（Slot Harmonics）</b>：定子齿槽引起的磁阻变化会产生极对数倍频谐波（Cogging Torque 谐波）；</li>
+                <li><b>同台解耦结论</b>：若谱线特征严格命中换向阶次且齿轮啮合基频（<i>f<sub>m</sub></i>）处平坦无峰，即可100%排除齿轮箱损伤，避免花费数万元盲目修整模具！</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 6. 4 轨声学分离引擎 -->
+    <div class="section-card" id="sec-separation">
+        <h2>6. Acoustic-Insight 4 轨声学分离引擎</h2>
+        <p>
+            常规频谱图对于非声学专业的工艺工程师和现场管理人员较为抽象。工作站搭载了 <b>Acoustic-Insight 声学分离引擎</b>，通过改进型非负矩阵分解（NMF）与时域瞬态分离算法，将混叠在一起的现场原始声音实时拆解为 4 条独立音轨：
+        </p>
+
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">音轨名称</th>
+                    <th style="width: 35%;">分离算法与技术特点</th>
+                    <th style="width: 40%;">工程试听与听音价值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>🔴 突发敲击异音轨 (Impacts Only)</b></td>
+                    <td>提取超过能量阈值的离散高频瞬态冲击分量，剥离所有稳态连续背景声</td>
+                    <td>只保留清晰清脆的“哒哒哒”断续敲击声，彻底消除底噪干扰，让异音无所遁形</td>
+                </tr>
+                <tr>
+                    <td><b>🟢 消除敲击后底噪轨 (Residual Background)</b></td>
+                    <td>利用时频残差抑制滤除所有瞬时敲击，保留齿轮平滑啮合连续嗡鸣</td>
+                    <td>用于评估齿面微观粗糙度与啮合顺畅度，检验消除异音后基准品质</td>
+                </tr>
+                <tr>
+                    <td><b>🔵 低频旋转律动轨 (Low-Freq Rhythm)</b></td>
+                    <td>提取 1X、2X 轴频旋转周期性调制包络，转化为低频调制声化信号</td>
+                    <td>用于直观感知偏心、轴弯曲或对中不良引起的“嗡...嗡...”周期性晃动感</td>
+                </tr>
+                <tr>
+                    <td><b>⚪ 现场原始声音轨 (Original Signal)</b></td>
+                    <td>经高保真滤波与工程标定后的传感器原始时域波形回放</td>
+                    <td>基准对比回放，支持与各分离轨同台 AB 对比切换试听，并可一键批量导出 WAV</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 7. 专家案例库与实战分析 -->
+    <div class="section-card" id="sec-cbr">
+        <h2>7. 专家案例库中心与实战分析</h2>
+        <p>
+            工作站集成了基于案例推理（Case-Based Reasoning, CBR）的专家案例管理中心，能够沉淀企业历史发生的各类典型减速器、微型执行器异音故障样本，构建企业专属的 NVH 知识中枢。
+        </p>
+
+        <div class="figure-container">
+            <img src="images/expert_case_management_hub.jpg" alt="专家案例库">
+            <div class="figure-caption">图 7-1: 专家案例库管理中心 (Case Manager Hub)——历史样本沉淀、谱图检索与相似度智能匹配</div>
+        </div>
+
+        <p>
+            当面对未知的新产品异音时，只需点击【🔍 智能检索匹配】，系统即刻在数据库中进行时频特征多维相似度比对，秒级召回最相似的历史案例、失效根因（如注塑收缩率不均、轴承装配倾斜、侧隙过紧）以及经由生产实践验证的解决纠正措施。
+        </p>
+    </div>
+
+    <!-- 8. 典型工程案例实录 -->
+    <div class="section-card" id="sec-cases">
+        <h2>8. 典型工程诊断案例实录</h2>
+        <p>
+            以下为 ANSV 工程团队在某车载两级精密摆动减速器（输入轴转速 800 RPM，第一级齿数 9/36，第二级齿数 10/42）现场进行的真实排查案例：
+        </p>
+
+        <div class="figure-container">
+            <img src="images/case_gearbox_800rpm_diagnosis.png" alt="800 RPM 诊断实测">
+            <div class="figure-caption">图 8-1: 800 RPM 工况实测图谱——二级主动轮单齿磕碰导致的啮合基频 fm2 (33.33 Hz) 调制边带激增</div>
+        </div>
+
+        <div class="callout callout-warning">
+            <b>📌 8D 诊断分析结论纪要：</b>
+            <ul>
+                <li><b>现象描述</b>：产品出厂听音抽检中，在 800 RPM 转速下出现约 3.33 Hz 的周期性断续硬敲击（单周期约 0.3 秒一声）；</li>
+                <li><b>动力学推演</b>：输入轴频 13.33 Hz，一级传动比 4.0，故中间轴转速为 3.33 Hz（恰好对应 0.3 秒周期）；二级啮合基频 <i>f<sub>m2</sub></i> = 3.33 × 10 = 33.33 Hz；</li>
+                <li><b>特征核验</b>：频谱图上 33.33 Hz 及其倍频处隆起，且两侧伴随对称分布的 3.33 Hz 旋转调制边带，峭度指标严重超标（Kurtosis = 7.82，超标阀值 4.5）；</li>
+                <li><b>拆解验证</b>：拆开齿轮箱显微镜检查，确认中间轴二级主动齿轮（10 齿）顶端存在一处模具脱模拉伤毛刺，更换完好齿轮后异音彻底消失，验证了反演算法的百分之百准确性。</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 9. 商业合作模式与授权资费 -->
+    <div class="section-card" id="sec-pricing">
+        <h2>9. 商业合作模式与授权资费标准</h2>
+        <p>
+            为满足不同阶段用户的实际工程需求，ANSV 平台提供极具性价比的灵活采购与技术合作模式：
+        </p>
+
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">合作模式</th>
+                    <th style="width: 20%;">周期 / 报价参考</th>
+                    <th style="width: 27%;">核心定位与适用场景</th>
+                    <th style="width: 28%;">核心权益与服务保障</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>⚡ 单次远程确诊与 8D 分析报告</b><br><span style="font-size: 11.5px; color: #D97706;">(推荐急需仲裁客户)</span></td>
+                    <td><b style="color: var(--primary); font-size: 15px;">¥ 2,000</b><br>/ 案例次</td>
+                    <td>针对急需界定产品异音责任、判断是电机换向跳拍还是齿轮加工缺陷的紧急工况，避免数万元盲目修模</td>
+                    <td>• 24h 内快速响应出具分析报告<br>• 输出图文并茂、机理确凿的专业 8D 诊断报告<br>• 明确界定责任归属，指导对中与公差微调</td>
+                </tr>
+                <tr>
+                    <td><b>🟢 7天全功能免费试用</b></td>
+                    <td><b>7 天</b> (免费申请)</td>
+                    <td>适用于前期技术方案可行性评估、实际样品录音效果验证</td>
+                    <td>开放全功能动力学特征反演与 4 轨异音分离体验</td>
+                </tr>
+                <tr>
+                    <td><b>🟢 研发工程专业版</b></td>
+                    <td><b>¥ 12,800</b> /年<br>或 <b>¥ 28,800</b> 买断</td>
+                    <td>适用于研发实验室、主机厂技术中心日常常态化 NVH 测量、异音溯源与设计优化</td>
+                    <td>单机一码永久/年度运行、免费小版本 OTA 升级与算法技术支持</td>
+                </tr>
+                <tr>
+                    <td><b>🟢 车间质检工位版</b></td>
+                    <td><b>¥ 21,800</b> /工位/年<br>或 <b>¥ 48,000</b> 买断</td>
+                    <td>适用于制造车间常态化测量、下线抽检与出厂品质评级，支持异音健康度状态判定（正常/注意/严重异常）</td>
+                    <td>工业传感器直连采集、云端数据双向同步（支持非标台架与 PLC 定制对接）</td>
+                </tr>
+                <tr>
+                    <td><b>🟣 软硬件打包方案</b></td>
+                    <td><b>¥ 58,000 ~ 68,000</b><br>/ 套 (硬件+软件)</td>
+                    <td>适用于希望开箱即用的制造企业，省去自行选型外设与工控调试的繁琐环节</td>
+                    <td>软件商业授权 + 推荐工业测量级传声器/加速度传感器 + 预装专用工控主机</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 10. 技术支持通道 -->
+    <div class="section-card" id="sec-contact">
+        <h2>10. 技术支持与专属联系通道</h2>
+        <p>
+            如果您在安装、激活、传感器选型、动力学建模或特殊非标传动分析中遇到任何技术疑问，欢迎随时通过以下专属渠道与我们取得联系：
+        </p>
+
+        <!-- 3 列二维码网格 -->
+        <div class="contact-grid">
+            <div class="contact-card">
+                <img src="images/wechat_personal_qr.png" alt="工程师微信">
+                <div class="contact-title">工程师专属微信</div>
+                <div class="contact-sub">微信号: ansv-net<br>技术答疑 · 申请试用</div>
+            </div>
+            <div class="contact-card">
+                <img src="images/official-account-qr.jpg" alt="官方公众号">
+                <div class="contact-title">官方微信公众号</div>
+                <div class="contact-sub">微信号: ANSV微型执行器<br>技术干货 · 行业案例</div>
+            </div>
+            <div class="contact-card">
+                <img src="images/whatsapp_qr.png" alt="WhatsApp">
+                <div class="contact-title">WhatsApp (International)</div>
+                <div class="contact-sub">ID: ansv_net<br>Global Technical Support</div>
+            </div>
+        </div>
+
+        <table class="modern-table">
+            <tbody>
+                <tr>
+                    <td style="width: 25%;"><b>🌐 官方技术门户</b></td>
+                    <td><a href="https://ansv.net" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">https://ansv.net</a></td>
+                </tr>
+                <tr>
+                    <td><b>📬 技术支持邮箱</b></td>
+                    <td><span style="font-family: Consolas, monospace; color: var(--primary);">support@ansv.net</span></td>
+                </tr>
+                <tr>
+                    <td><b>💻 官方开源与分发仓库</b></td>
+                    <td><a href="https://github.com/tonychen5577-tech/gear-nvh" target="_blank" style="color: var(--primary); text-decoration: none;">https://github.com/tonychen5577-tech/gear-nvh</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 底部版权 -->
+    <div class="footer">
+        Copyright © 2026 ANSV Transmissions & Micro-Actuators Lab (ansv.net). All Rights Reserved.<br>
+        工业测控 · 精密诊断 · 追求卓越 | 本文档受国家知识产权保护
+    </div>
+
+</div>
+
+</body>
+</html>
